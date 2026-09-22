@@ -40,7 +40,7 @@ export function Contact({ go }: ContactProps) {
           <div className="flex flex-col justify-between space-y-6">
             <div className="relative overflow-hidden rounded-[28px] bg-[#334155] p-8 text-white shadow-[0_15px_40px_rgba(51,65,85,0.15)] border border-slate-700/50">
               <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/5 blur-2xl pointer-events-none" />
-              
+
               <div className="relative z-10">
                 <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-[11px] font-bold text-[#8ed8d0] border border-white/10">
                   <Headphones size={13} /> Immediate Assistance
@@ -71,8 +71,8 @@ export function Contact({ go }: ContactProps) {
                     </div>
                     <div>
                       <div className="text-[11px] text-white/50 font-medium">Email Support</div>
-                      <a href="mailto:Support@theparser.com" className="font-bold text-white hover:text-[#8ed8d0] transition text-sm">
-                        Support@theparser.com
+                      <a href="mailto:support@theparser.com" className="font-bold text-white hover:text-[#8ed8d0] transition text-sm">
+                        support@theparser.com
                       </a>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ export function Contact({ go }: ContactProps) {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field label="Full Name" placeholder="Your name" />
                   <Field label="Mobile Number" placeholder="+91 93165 35015" />
-                  <Field label="Email Address" placeholder="Support@theparser.com" type="email" />
+                  <Field label="Email Address" placeholder="support@theparser.com" type="email" />
                   <Field label="City / Location" placeholder="e.g. Surat, Bengaluru" />
                 </div>
 

@@ -13,13 +13,18 @@ export function HowSection({ go }: HowSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const spacerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const isManualScrolling = useRef<boolean>(false);
+  const scrollTimeoutRef = useRef<number | null>(null);
+
   const steps = driverAppSteps;
   const activeStep = steps[activeIndex] || steps[0];
 
   // Natural scroll listener: dynamically updates activeStep as user scrolls through spacers
   useEffect(() => {
     const handleScroll = () => {
+      if (isManualScrolling.current) return;
       if (!sectionRef.current) return;
+
       const rect = sectionRef.current.getBoundingClientRect();
       const stickyTopOffset = 100;
       const scrolledInside = -(rect.top - stickyTopOffset);
@@ -47,6 +52,29 @@ export function HowSection({ go }: HowSectionProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [steps.length]);
+
+  const handleStepClick = (idx: number) => {
+    setActiveIndex(idx);
+    isManualScrolling.current = true;
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    scrollTimeoutRef.current = window.setTimeout(() => {
+      isManualScrolling.current = false;
+    }, 850);
+
+    if (sectionRef.current) {
+      const sectionTop = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+      const stickyTopOffset = 100;
+      const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
+
+      if (totalScrollable > 0) {
+        const targetProgress = idx === 0 ? 0 : (idx + 0.3) / steps.length;
+        const targetScroll = sectionTop - stickyTopOffset + targetProgress * totalScrollable;
+        window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <section
@@ -115,13 +143,20 @@ export function HowSection({ go }: HowSectionProps) {
               {/* Minimal Progress Step Indicators (Dots) */}
               <div className="flex items-center gap-2 mt-8">
                 {steps.map((_, idx) => (
-                  <div
+                  <button
                     key={idx}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${activeIndex === idx
-                      ? 'w-8 bg-[#389c8e]'
-                      : 'w-2 bg-slate-300'
-                      }`}
-                  />
+                    type="button"
+                    onClick={() => handleStepClick(idx)}
+                    aria-label={`Go to step ${idx + 1}`}
+                    className="group relative flex items-center justify-center p-2 cursor-pointer focus:outline-none"
+                  >
+                    <span
+                      className={`h-2.5 rounded-full transition-all duration-300 ${activeIndex === idx
+                        ? 'w-8 bg-[#389c8e] shadow-sm'
+                        : 'w-2.5 bg-slate-300 group-hover:bg-[#389c8e]/60 group-hover:w-4'
+                        }`}
+                    />
+                  </button>
                 ))}
               </div>
             </div>

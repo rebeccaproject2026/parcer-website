@@ -44,12 +44,12 @@ export function Footer({ go }: FooterProps) {
                 />
               </button>
               <a
-                href="https://www.tinyscript.in/"
+                href="https://tinyscript.in/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 text-[11px] font-semibold tracking-wide text-[#8ed8d0]/90 transition-colors hover:text-[#8ed8d0]"
               >
-                A Product of <span className="font-bold text-white underline decoration-[#8ed8d0]/60 hover:decoration-white">TinyScript</span>
+                A Product of <span className="font-bold text-white underline decoration-[#8ed8d0]/60 hover:decoration-white">Tiny Script Soft Tech Pvt. Ltd.</span>
               </a>
             </div>
             <p className="mt-4 max-w-[240px] text-sm leading-6 text-white/60">
@@ -97,11 +97,11 @@ export function Footer({ go }: FooterProps) {
             </h3>
             <div className="mt-5 space-y-3.5 text-sm text-white/75">
               <a
-                href="mailto:Support@theparser.com"
+                href="mailto:support@theparser.com"
                 className="flex items-center gap-2 text-white/80 hover:text-[#8ed8d0] transition-colors"
               >
                 <Mail size={14} className="text-[#8ed8d0]" />
-                Support@theparser.com
+                support@theparser.com
               </a>
               <a
                 href="tel:9316535015"
@@ -154,17 +154,22 @@ export function Footer({ go }: FooterProps) {
           <div>
             © 2026 Parcer. A product of{' '}
             <a
-              href="https://www.tinyscript.in/"
+              href="https://tinyscript.in/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-[#8ed8d0] transition-colors hover:text-white hover:underline"
             >
-              TinyScript
+              Tiny Script Soft Tech Pvt. Ltd.
             </a>
             . All rights reserved.
           </div>
           <div className="flex gap-5">
-            <span className="hover:text-white cursor-pointer transition">Privacy Policy</span>
+            <button
+              onClick={() => go('privacy-policy')}
+              className="hover:text-white cursor-pointer transition text-left"
+            >
+              Privacy Policy
+            </button>
             <span className="hover:text-white cursor-pointer transition">Terms & Conditions</span>
           </div>
         </div>

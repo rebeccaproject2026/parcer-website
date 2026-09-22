@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react';
 import type { IconType } from '../../types';
 
 interface ServiceCardProps {
@@ -34,18 +33,19 @@ export function ServiceCard({
   };
 
   return (
-    <div className={`group flex flex-col justify-between rounded-[24px] border border-white bg-white p-6 shadow-[0_10px_30px_rgba(51,65,85,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(51,65,85,0.1)] ${className}`}>
+    <div
+      className={`group flex flex-col justify-between rounded-[24px] border border-white bg-white p-7 shadow-[0_10px_30px_rgba(51,65,85,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(51,65,85,0.09)] ${className}`}
+    >
       <div>
         <div
-          className={`mb-8 flex h-12 w-12 items-center justify-center rounded-2xl text-[#334155] ${getBgColor()}`}
+          className={`mb-6 flex h-12 w-12 items-center justify-center rounded-2xl text-[#334155] transition-transform duration-300 group-hover:scale-110 ${getBgColor()}`}
         >
           <Icon size={22} strokeWidth={1.7} />
         </div>
-        <h3 className="text-lg font-bold text-[#334155]">{title}</h3>
-        <p className="mt-3 text-sm leading-6 text-slate-500">{text}</p>
-      </div>
-      <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-5 text-xs font-bold text-[#389c8e]">
-        Learn more <ArrowUpRight size={15} />
+        <h3 className="text-lg font-bold text-[#334155] group-hover:text-[#389c8e] transition-colors">
+          {title}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-slate-500">{text}</p>
       </div>
     </div>
   );

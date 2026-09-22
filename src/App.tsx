@@ -8,6 +8,7 @@ import { About } from './pages/About';
 // import { Services } from './pages/Services';
 // import { HowItWorks } from './pages/HowItWorks';
 import { Contact } from './pages/Contact';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
 
 function App() {
   const [view, setView] = useState<View>('home');
@@ -68,6 +69,7 @@ function App() {
       {/* {view === 'services' && <Services go={go} />} */}
       {/* {view === 'how-it-works' && <HowItWorks go={go} />} */}
       {view === 'contact' && <Contact go={go} />}
+      {view === 'privacy-policy' && <PrivacyPolicy go={go} />}
 
       <Footer go={go} />
     </div>

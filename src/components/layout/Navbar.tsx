@@ -45,11 +45,11 @@ export function Navbar({
               +91 93165 35015
             </a>
             <a
-              href="mailto:Support@theparser.com"
+              href="mailto:support@theparser.com"
               className="flex items-center gap-1.5 text-slate-300 hover:text-[#8ed8d0] transition-colors"
             >
               <Mail size={12} className="text-[#8ed8d0]" />
-              Support@theparser.com
+              support@theparser.com
             </a>
           </div>
 
@@ -152,8 +152,8 @@ export function Navbar({
                 <a href="tel:9316535015" className="flex items-center gap-2 text-slate-600 font-semibold">
                   <Phone size={14} className="text-[#389c8e]" /> Support: +91 93165 35015
                 </a>
-                <a href="mailto:Support@theparser.com" className="flex items-center gap-2 text-slate-600 font-semibold">
-                  <Mail size={14} className="text-[#389c8e]" /> Support@theparser.com
+                <a href="mailto:support@theparser.com" className="flex items-center gap-2 text-slate-600 font-semibold">
+                  <Mail size={14} className="text-[#389c8e]" /> support@theparser.com
                 </a>
               </div>
 

@@ -1,4 +1,4 @@
-import { ArrowUpRight, MapPin, Navigation, Truck } from 'lucide-react';
+import { MapPin, Navigation, Truck } from 'lucide-react';
 import type { View } from '../../types';
 import { serviceItems } from '../../data/services';
 import { SectionIntro } from '../common/SectionIntro';
@@ -81,12 +81,6 @@ export function ServicesSection({ go }: ServicesSectionProps) {
             eyebrow="What We Offer"
             title="Services Built For You."
           />
-          <button
-            onClick={() => go('services')}
-            className="mb-1 inline-flex items-center gap-2 text-sm font-bold text-[#389c8e] hover:gap-3 transition-all"
-          >
-            View all services <ArrowUpRight size={16} />
-          </button>
         </div>
 
         {/* Services Cards */}
