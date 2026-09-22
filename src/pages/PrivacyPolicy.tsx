@@ -13,9 +13,6 @@ export function PrivacyPolicy({ go }: PrivacyPolicyProps) {
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl text-white">
             Privacy Policy
           </h1>
-          <p className="mt-3 text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
-            Tiny Script Soft Tech Pvt. Ltd. (Parcer)
-          </p>
         </div>
       </section>
 
@@ -39,7 +36,21 @@ export function PrivacyPolicy({ go }: PrivacyPolicyProps) {
                 This Policy applies to customers, consignors, consignees, recipients, drivers, delivery partners, vehicle owners, business users, authorized representatives and other individuals who interact with the Platform (collectively, &ldquo;<strong className="font-semibold text-slate-900">you</strong>&rdquo; or &ldquo;<strong className="font-semibold text-slate-900">your</strong>&rdquo;).
               </p>
               <p>
-                The Policy is intended to be read together with our <strong className="font-semibold text-slate-900">Terms &amp; Conditions</strong>, <strong className="font-semibold text-slate-900">Driver/Delivery Partner Terms</strong>, <strong className="font-semibold text-slate-900">Cancellation and Refund Policy</strong> and any other notices presented to you at the time of collection or use of personal data.
+                The Policy is intended to be read together with our{' '}
+                <button
+                  onClick={() => go('terms-conditions')}
+                  className="font-semibold text-[#389c8e] hover:underline cursor-pointer"
+                >
+                  Terms &amp; Conditions
+                </button>
+                , <strong className="font-semibold text-slate-900">Driver/Delivery Partner Terms</strong>,{' '}
+                <button
+                  onClick={() => go('refund-policy')}
+                  className="font-semibold text-[#389c8e] hover:underline cursor-pointer"
+                >
+                  Cancellation and Refund Policy
+                </button>{' '}
+                and any other notices presented to you at the time of collection or use of personal data.
               </p>
               <p>
                 By using our services and application, you will be regarded as having read and accepted this Policy. You must not use this platform if you do not accept this Policy.

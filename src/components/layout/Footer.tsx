@@ -170,7 +170,18 @@ export function Footer({ go }: FooterProps) {
             >
               Privacy Policy
             </button>
-            <span className="hover:text-white cursor-pointer transition">Terms & Conditions</span>
+            <button
+              onClick={() => go('terms-conditions')}
+              className="hover:text-white cursor-pointer transition text-left"
+            >
+              Terms &amp; Conditions
+            </button>
+            <button
+              onClick={() => go('refund-policy')}
+              className="hover:text-white cursor-pointer transition text-left"
+            >
+              Cancellation &amp; Refund
+            </button>
           </div>
         </div>
       </div>

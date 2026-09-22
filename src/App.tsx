@@ -9,6 +9,8 @@ import { About } from './pages/About';
 // import { HowItWorks } from './pages/HowItWorks';
 import { Contact } from './pages/Contact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { TermsConditions } from './pages/TermsConditions';
+import { RefundPolicy } from './pages/RefundPolicy';
 
 function App() {
   const [view, setView] = useState<View>('home');
@@ -70,6 +72,8 @@ function App() {
       {/* {view === 'how-it-works' && <HowItWorks go={go} />} */}
       {view === 'contact' && <Contact go={go} />}
       {view === 'privacy-policy' && <PrivacyPolicy go={go} />}
+      {view === 'terms-conditions' && <TermsConditions go={go} />}
+      {view === 'refund-policy' && <RefundPolicy go={go} />}
 
       <Footer go={go} />
     </div>
