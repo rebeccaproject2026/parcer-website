@@ -9,7 +9,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 
 export interface AppStep {
-  screenType: string;
+  screenType?: string;
   id: string;
   number: string;
   title: string;
