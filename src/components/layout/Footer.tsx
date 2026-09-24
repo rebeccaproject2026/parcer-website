@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   Facebook,
   Instagram,
@@ -23,7 +24,28 @@ function XIcon({ size = 14, className }: { size?: number; className?: string }) 
 }
 
 interface FooterProps {
-  go: (view: View) => void;
+  go: (view: View, anchor?: string) => void;
+}
+
+function getRouteForView(key: string): string {
+  switch (key) {
+    case 'privacy-policy':
+      return '/privacy-policy';
+    case 'terms-conditions':
+      return '/terms-conditions';
+    case 'refund-policy':
+      return '/refund-policy';
+    case 'about':
+      return '/about';
+    case 'contact':
+      return '/contact';
+    case 'services':
+      return '/#services';
+    case 'how-it-works':
+      return '/#how-it-works';
+    default:
+      return '/';
+  }
 }
 
 export function Footer({ go }: FooterProps) {
@@ -33,8 +55,8 @@ export function Footer({ go }: FooterProps) {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <div className="flex flex-col items-start">
-              <button
-                onClick={() => go('home')}
+              <Link
+                to="/"
                 className="inline-flex items-center rounded-xl bg-white px-3 py-1.5 transition hover:opacity-90 shadow-md hover:scale-105 duration-200"
               >
                 <img
@@ -42,7 +64,7 @@ export function Footer({ go }: FooterProps) {
                   alt="Parcer"
                   className="h-8 w-auto max-w-[130px] object-contain"
                 />
-              </button>
+              </Link>
               <a
                 href="https://tinyscript.in/"
                 target="_blank"
@@ -163,25 +185,25 @@ export function Footer({ go }: FooterProps) {
             </a>
             . All rights reserved.
           </div>
-          <div className="flex gap-5">
-            <button
-              onClick={() => go('privacy-policy')}
-              className="hover:text-white cursor-pointer transition text-left"
+          <div className="flex flex-wrap gap-5">
+            <Link
+              to="/privacy-policy"
+              className="hover:text-white transition text-left"
             >
               Privacy Policy
-            </button>
-            <button
-              onClick={() => go('terms-conditions')}
-              className="hover:text-white cursor-pointer transition text-left"
+            </Link>
+            <Link
+              to="/terms-conditions"
+              className="hover:text-white transition text-left"
             >
               Terms &amp; Conditions
-            </button>
-            <button
-              onClick={() => go('refund-policy')}
-              className="hover:text-white cursor-pointer transition text-left"
+            </Link>
+            <Link
+              to="/refund-policy"
+              className="hover:text-white transition text-left"
             >
               Cancellation &amp; Refund
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -204,7 +226,7 @@ function FooterColumn({
 }: {
   title: string;
   links: [string, string][];
-  go: (view: View) => void;
+  go: (view: View, anchor?: string) => void;
 }) {
   return (
     <div>
@@ -212,16 +234,31 @@ function FooterColumn({
         {title}
       </h3>
       <div className="mt-5 space-y-3">
-        {links.map(([label, key]) => (
-          <button
-            key={label}
-            onClick={() => go(key as View)}
-            className="block text-sm text-white/70 transition-all duration-200 hover:text-white hover:translate-x-1"
-          >
-            {label}
-          </button>
-        ))}
+        {links.map(([label, key]) => {
+          const isAnchorOrHome = key === 'services' || key === 'how-it-works';
+          if (isAnchorOrHome) {
+            return (
+              <button
+                key={label}
+                onClick={() => go('home', key)}
+                className="block text-sm text-white/70 transition-all duration-200 hover:text-white hover:translate-x-1 text-left"
+              >
+                {label}
+              </button>
+            );
+          }
+          return (
+            <Link
+              key={label}
+              to={getRouteForView(key)}
+              className="block text-sm text-white/70 transition-all duration-200 hover:text-white hover:translate-x-1"
+            >
+              {label}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
 }
+

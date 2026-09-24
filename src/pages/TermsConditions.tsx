@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import type { View } from '../types';
 
 interface TermsConditionsProps {
-  go: (view: View) => void;
+  go?: (view: View) => void;
 }
 
-export function TermsConditions({ go }: TermsConditionsProps) {
+export function TermsConditions({ go: _go }: TermsConditionsProps) {
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       {/* Header Banner */}
@@ -154,12 +155,12 @@ export function TermsConditions({ go }: TermsConditionsProps) {
                 </h3>
                 <p>
                   Parcer&rsquo;s collection and use of personal data is governed by the{' '}
-                  <button
-                    onClick={() => go('privacy-policy')}
+                  <Link
+                    to="/privacy-policy"
                     className="font-bold text-[#389c8e] hover:underline cursor-pointer"
                   >
                     Parcer Privacy Policy
-                  </button>
+                  </Link>
                   , which forms part of the overall terms governing use of the Platform.
                 </p>
                 <p>
@@ -465,12 +466,12 @@ export function TermsConditions({ go }: TermsConditionsProps) {
                   <li>Waiting or cancellation charges may apply where the User, sender or recipient is unavailable or not ready.</li>
                   <li>
                     Refunds, where applicable, will be processed according to the{' '}
-                    <button
-                      onClick={() => go('refund-policy')}
+                    <Link
+                      to="/refund-policy"
                       className="font-semibold text-[#389c8e] hover:underline cursor-pointer"
                     >
                       Parcer Refund &amp; Cancellation Policy
-                    </button>{' '}
+                    </Link>{' '}
                     and the payment method used.
                   </li>
                 </ul>

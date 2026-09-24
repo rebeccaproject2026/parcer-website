@@ -1,74 +1,76 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import type { View } from './types';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
-// Future subpage routes (commented out as sections are integrated directly into Home page):
-// import { Services } from './pages/Services';
-// import { HowItWorks } from './pages/HowItWorks';
 import { Contact } from './pages/Contact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsConditions } from './pages/TermsConditions';
 import { RefundPolicy } from './pages/RefundPolicy';
 
-function getViewFromLocation(): { view: View; anchor?: string } {
-  if (typeof window === 'undefined') return { view: 'home' };
-
-  const rawPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
-  const rawHash = window.location.hash.toLowerCase().replace(/^#\/?/, '');
-
-  const target = rawPath || rawHash;
+function getViewFromPath(pathname: string, hash: string): { view: View; anchor?: string } {
+  const cleanPath = pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
+  const cleanHash = hash.toLowerCase().replace(/^#\/?/, '');
 
   if (
-    target === 'privacy-policy' ||
-    target === 'privacy' ||
-    target === 'privacypolicy' ||
-    target === 'privacy-policy.html'
+    cleanPath === 'privacy-policy' ||
+    cleanPath === 'privacy' ||
+    cleanPath === 'privacypolicy' ||
+    cleanPath === 'privacy-policy.html' ||
+    cleanPath === 'privacy.html'
   ) {
     return { view: 'privacy-policy' };
   }
 
   if (
-    target === 'terms-conditions' ||
-    target === 'terms' ||
-    target === 'terms-and-conditions' ||
-    target === 'termsconditions' ||
-    target === 'terms-conditions.html'
+    cleanPath === 'terms-conditions' ||
+    cleanPath === 'terms' ||
+    cleanPath === 'terms-and-conditions' ||
+    cleanPath === 'termsconditions' ||
+    cleanPath === 'terms-conditions.html' ||
+    cleanPath === 'terms.html' ||
+    cleanPath === 'terms-and-conditions.html'
   ) {
     return { view: 'terms-conditions' };
   }
 
   if (
-    target === 'refund-policy' ||
-    target === 'cancellation-refund' ||
-    target === 'cancellation-policy' ||
-    target === 'cancellation-and-refund' ||
-    target === 'refundpolicy' ||
-    target === 'refund-policy.html' ||
-    target === 'cancellation-refund.html'
+    cleanPath === 'refund-policy' ||
+    cleanPath === 'cancellation-refund' ||
+    cleanPath === 'cancellation-policy' ||
+    cleanPath === 'cancellation-and-refund' ||
+    cleanPath === 'cancellation' ||
+    cleanPath === 'refund' ||
+    cleanPath === 'refundpolicy' ||
+    cleanPath === 'refund-policy.html' ||
+    cleanPath === 'cancellation-refund.html' ||
+    cleanPath === 'cancellation-policy.html' ||
+    cleanPath === 'cancellation.html' ||
+    cleanPath === 'refund.html'
   ) {
     return { view: 'refund-policy' };
   }
 
-  if (target === 'about' || target === 'about-us') {
+  if (cleanPath === 'about' || cleanPath === 'about-us' || cleanPath === 'about.html' || cleanPath === 'about-us.html') {
     return { view: 'about' };
   }
 
-  if (target === 'contact' || target === 'contact-us') {
+  if (cleanPath === 'contact' || cleanPath === 'contact-us' || cleanPath === 'contact.html' || cleanPath === 'contact-us.html') {
     return { view: 'contact' };
   }
 
-  if (target === 'services') {
+  if (cleanPath === 'services' || cleanPath === 'services.html') {
     return { view: 'home', anchor: 'services' };
   }
 
-  if (target === 'how-it-works') {
+  if (cleanPath === 'how-it-works' || cleanPath === 'how-it-works.html') {
     return { view: 'home', anchor: 'how-it-works' };
   }
 
-  if (rawHash && ['services', 'how-it-works', 'vehicles', 'ready-to-move', 'faqs'].includes(rawHash)) {
-    return { view: 'home', anchor: rawHash };
+  if (cleanHash && ['services', 'how-it-works', 'vehicles', 'ready-to-move', 'faqs'].includes(cleanHash)) {
+    return { view: 'home', anchor: cleanHash };
   }
 
   return { view: 'home' };
@@ -103,10 +105,13 @@ const pageTitles: Record<View, string> = {
 };
 
 function App() {
-  const [view, setView] = useState<View>(() => getViewFromLocation().view);
+  const location = useLocation();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [scrolled, setScrolled] = useState(false);
+
+  const { view, anchor } = getViewFromPath(location.pathname, location.hash);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 18);
@@ -114,75 +119,40 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Sync route on popstate (browser Back/Forward) and hashchange
-  useEffect(() => {
-    const handleLocationChange = () => {
-      const { view: nextView, anchor } = getViewFromLocation();
-      setView(nextView);
-      if (anchor) {
-        window.setTimeout(() => {
-          const el = document.getElementById(anchor);
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-      }
-    };
-
-    window.addEventListener('popstate', handleLocationChange);
-    window.addEventListener('hashchange', handleLocationChange);
-    return () => {
-      window.removeEventListener('popstate', handleLocationChange);
-      window.removeEventListener('hashchange', handleLocationChange);
-    };
-  }, []);
-
   // Update page document title
   useEffect(() => {
     document.title = pageTitles[view] || 'Parcer — Smarter Goods Transportation';
   }, [view]);
 
-  // Handle initial anchor scroll if present
+  // Handle scroll on route / anchor change
   useEffect(() => {
-    const { anchor } = getViewFromLocation();
     if (anchor) {
       window.setTimeout(() => {
         const el = document.getElementById(anchor);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 150);
-    }
-  }, []);
-
-  const go = (next: View, anchor?: string) => {
-    let targetView = next;
-    let targetAnchor = anchor;
-
-    if (next === 'services') {
-      targetView = 'home';
-      targetAnchor = 'services';
-    } else if (next === 'how-it-works') {
-      targetView = 'home';
-      targetAnchor = 'how-it-works';
-    }
-
-    const newPath = getPathForView(targetView);
-    const newUrl = targetAnchor ? `${newPath}#${targetAnchor}` : newPath;
-
-    if (window.location.pathname !== newPath || (targetAnchor && window.location.hash !== `#${targetAnchor}`)) {
-      window.history.pushState({ view: targetView, anchor: targetAnchor }, '', newUrl);
-    }
-
-    setView(targetView);
-    setMenuOpen(false);
-
-    if (targetAnchor) {
-      window.setTimeout(() => {
-        const el = document.getElementById(targetAnchor!);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
       }, 100);
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  }, [location.pathname, location.hash, anchor]);
+
+  const go = (next: View, targetAnchor?: string) => {
+    let targetView = next;
+    let anchorToUse = targetAnchor;
+
+    if (next === 'services') {
+      targetView = 'home';
+      anchorToUse = 'services';
+    } else if (next === 'how-it-works') {
+      targetView = 'home';
+      anchorToUse = 'how-it-works';
+    }
+
+    const newPath = getPathForView(targetView);
+    const targetUrl = anchorToUse ? `${newPath}#${anchorToUse}` : newPath;
+
+    navigate(targetUrl);
+    setMenuOpen(false);
   };
 
   return (
@@ -195,17 +165,56 @@ function App() {
         setMenuOpen={setMenuOpen}
       />
 
-      {view === 'home' && (
-        <Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />
-      )}
-      {view === 'about' && <About go={go} />}
-      {/* Kept commented for future use if dedicated subpages are needed: */}
-      {/* {view === 'services' && <Services go={go} />} */}
-      {/* {view === 'how-it-works' && <HowItWorks go={go} />} */}
-      {view === 'contact' && <Contact go={go} />}
-      {view === 'privacy-policy' && <PrivacyPolicy go={go} />}
-      {view === 'terms-conditions' && <TermsConditions go={go} />}
-      {view === 'refund-policy' && <RefundPolicy go={go} />}
+      <Routes>
+        {/* Home Routes */}
+        <Route path="/" element={<Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />} />
+        <Route path="/index.html" element={<Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />} />
+        
+        {/* About Routes */}
+        <Route path="/about" element={<About go={go} />} />
+        <Route path="/about-us" element={<About go={go} />} />
+        <Route path="/about.html" element={<About go={go} />} />
+        <Route path="/about-us.html" element={<About go={go} />} />
+
+        {/* Contact Routes */}
+        <Route path="/contact" element={<Contact go={go} />} />
+        <Route path="/contact-us" element={<Contact go={go} />} />
+        <Route path="/contact.html" element={<Contact go={go} />} />
+        <Route path="/contact-us.html" element={<Contact go={go} />} />
+
+        {/* Privacy Policy Routes */}
+        <Route path="/privacy-policy" element={<PrivacyPolicy go={go} />} />
+        <Route path="/privacy" element={<PrivacyPolicy go={go} />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy go={go} />} />
+        <Route path="/privacy-policy.html" element={<PrivacyPolicy go={go} />} />
+        <Route path="/privacy.html" element={<PrivacyPolicy go={go} />} />
+
+        {/* Terms & Conditions Routes */}
+        <Route path="/terms-conditions" element={<TermsConditions go={go} />} />
+        <Route path="/terms" element={<TermsConditions go={go} />} />
+        <Route path="/terms-and-conditions" element={<TermsConditions go={go} />} />
+        <Route path="/termsconditions" element={<TermsConditions go={go} />} />
+        <Route path="/terms-conditions.html" element={<TermsConditions go={go} />} />
+        <Route path="/terms.html" element={<TermsConditions go={go} />} />
+        <Route path="/terms-and-conditions.html" element={<TermsConditions go={go} />} />
+
+        {/* Cancellation & Refund Policy Routes */}
+        <Route path="/refund-policy" element={<RefundPolicy go={go} />} />
+        <Route path="/cancellation-refund" element={<RefundPolicy go={go} />} />
+        <Route path="/cancellation-policy" element={<RefundPolicy go={go} />} />
+        <Route path="/cancellation-and-refund" element={<RefundPolicy go={go} />} />
+        <Route path="/cancellation" element={<RefundPolicy go={go} />} />
+        <Route path="/refund" element={<RefundPolicy go={go} />} />
+        <Route path="/refundpolicy" element={<RefundPolicy go={go} />} />
+        <Route path="/refund-policy.html" element={<RefundPolicy go={go} />} />
+        <Route path="/cancellation-refund.html" element={<RefundPolicy go={go} />} />
+        <Route path="/cancellation-policy.html" element={<RefundPolicy go={go} />} />
+        <Route path="/cancellation.html" element={<RefundPolicy go={go} />} />
+        <Route path="/refund.html" element={<RefundPolicy go={go} />} />
+
+        {/* Fallback */}
+        <Route path="*" element={<Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />} />
+      </Routes>
 
       <Footer go={go} />
     </div>

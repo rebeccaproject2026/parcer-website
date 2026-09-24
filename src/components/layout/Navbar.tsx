@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Mail, Menu, Phone, Sparkles, UserPlus, X } from 'lucide-react';
 import type { View } from '../../types';
 
@@ -73,8 +74,8 @@ export function Navbar({
           }`}
       >
         <div className="mx-auto flex h-[76px] max-w-[1240px] items-center justify-between px-5 lg:px-8">
-          <button
-            onClick={() => go('home')}
+          <Link
+            to="/"
             aria-label="Parcer home"
             className="flex items-center py-1 transition-transform duration-300 hover:scale-[1.03]"
           >
@@ -83,7 +84,7 @@ export function Navbar({
               alt="Parcer"
               className="h-10 sm:h-11 md:h-12 w-auto object-contain"
             />
-          </button>
+          </Link>
 
           <nav className="hidden items-center gap-8 lg:flex">
             {navLinks.map(([key, label]) => {

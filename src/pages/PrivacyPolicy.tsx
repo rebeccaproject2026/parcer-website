@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import type { View } from '../types';
 
 interface PrivacyPolicyProps {
-  go: (view: View) => void;
+  go?: (view: View) => void;
 }
 
-export function PrivacyPolicy({ go }: PrivacyPolicyProps) {
+export function PrivacyPolicy({ go: _go }: PrivacyPolicyProps) {
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       {/* Header Banner */}
@@ -37,19 +38,19 @@ export function PrivacyPolicy({ go }: PrivacyPolicyProps) {
               </p>
               <p>
                 The Policy is intended to be read together with our{' '}
-                <button
-                  onClick={() => go('terms-conditions')}
+                <Link
+                  to="/terms-conditions"
                   className="font-semibold text-[#389c8e] hover:underline cursor-pointer"
                 >
                   Terms &amp; Conditions
-                </button>
+                </Link>
                 , <strong className="font-semibold text-slate-900">Driver/Delivery Partner Terms</strong>,{' '}
-                <button
-                  onClick={() => go('refund-policy')}
+                <Link
+                  to="/refund-policy"
                   className="font-semibold text-[#389c8e] hover:underline cursor-pointer"
                 >
                   Cancellation and Refund Policy
-                </button>{' '}
+                </Link>{' '}
                 and any other notices presented to you at the time of collection or use of personal data.
               </p>
               <p>

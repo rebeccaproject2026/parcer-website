@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import type { View } from '../types';
 
 interface RefundPolicyProps {
-  go: (view: View) => void;
+  go?: (view: View) => void;
 }
 
-export function RefundPolicy({ go }: RefundPolicyProps) {
+export function RefundPolicy({ go: _go }: RefundPolicyProps) {
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       {/* Header Banner */}
@@ -34,19 +35,19 @@ export function RefundPolicy({ go }: RefundPolicyProps) {
               </p>
               <p>
                 This Policy applies to delivery and local goods transportation bookings made through the Parcer mobile application, website or other official Parcer channels. It forms part of Parcer&rsquo;s{' '}
-                <button
-                  onClick={() => go('terms-conditions')}
+                <Link
+                  to="/terms-conditions"
                   className="font-bold text-[#389c8e] hover:underline cursor-pointer"
                 >
                   Customer/User Terms &amp; Conditions
-                </button>{' '}
+                </Link>{' '}
                 and should be read together with the{' '}
-                <button
-                  onClick={() => go('privacy-policy')}
+                <Link
+                  to="/privacy-policy"
                   className="font-bold text-[#389c8e] hover:underline cursor-pointer"
                 >
                   Privacy Policy
-                </button>
+                </Link>
                 , Wallet/Payment Policy and service-specific terms.
               </p>
               <p className="bg-slate-50 border-l-4 border-[#389c8e] p-4 rounded-r-lg font-medium text-slate-800 text-sm sm:text-base">
