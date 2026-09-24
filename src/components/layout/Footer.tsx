@@ -33,6 +33,8 @@ function getRouteForView(key: string): string {
       return '/privacy-policy';
     case 'terms-conditions':
       return '/terms-conditions';
+    case 'terms-partner':
+      return '/terms-partner';
     case 'refund-policy':
       return '/refund-policy';
     case 'about':
@@ -196,7 +198,13 @@ export function Footer({ go }: FooterProps) {
               to="/terms-conditions"
               className="hover:text-white transition text-left"
             >
-              Terms &amp; Conditions
+              Terms &amp; Conditions (User)
+            </Link>
+            <Link
+              to="/terms-partner"
+              className="hover:text-white transition text-left"
+            >
+              Terms &amp; Conditions (Partner)
             </Link>
             <Link
               to="/refund-policy"

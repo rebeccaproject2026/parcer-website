@@ -12,7 +12,7 @@ export function TermsConditions({ go: _go }: TermsConditionsProps) {
       <section className="relative bg-[#334155] px-5 pt-32 pb-24 md:pt-40 md:pb-28 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl text-white">
-            Terms &amp; Conditions
+            Terms &amp; Conditions (User)
           </h1>
         </div>
       </section>
@@ -21,6 +21,19 @@ export function TermsConditions({ go: _go }: TermsConditionsProps) {
       <section className="relative z-10 px-5 pb-20 lg:px-8 -mt-12 md:-mt-16">
         <div className="mx-auto max-w-[960px]">
           <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-10 md:p-14 shadow-[0_15px_45px_rgba(51,65,85,0.08)] space-y-12 text-[15px] sm:text-[16px] leading-relaxed text-slate-700">
+
+            {/* Quick Switcher Tab / Notice */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-5">
+              <div className="text-xs sm:text-sm text-slate-500">
+                Looking for Driver / Delivery Partner Terms?{' '}
+                <Link
+                  to="/terms-partner"
+                  className="font-semibold text-[#389c8e] hover:underline"
+                >
+                  View Terms &amp; Conditions (Partner) &rarr;
+                </Link>
+              </div>
+            </div>
 
             {/* Preamble / Introduction Box */}
             <div className="space-y-4 rounded-2xl bg-slate-50/80 p-5 sm:p-6 border border-slate-200/90">
@@ -88,7 +101,13 @@ export function TermsConditions({ go: _go }: TermsConditionsProps) {
                       </tr>
                       <tr className="hover:bg-slate-50/50">
                         <td className="py-3 px-4 sm:px-6 font-semibold text-slate-900">Service Partner / Driver</td>
-                        <td className="py-3 px-4 sm:px-6">An independent delivery/service provider who accepts and performs a booking through Parcer. Driver-specific obligations are governed by separate Service Partner Terms.</td>
+                        <td className="py-3 px-4 sm:px-6">
+                          An independent delivery/service provider who accepts and performs a booking through Parcer. Driver-specific obligations are governed by separate{' '}
+                          <Link to="/terms-partner" className="font-semibold text-[#389c8e] hover:underline">
+                            Service Partner Terms
+                          </Link>
+                          .
+                        </td>
                       </tr>
                       <tr className="hover:bg-slate-50/50">
                         <td className="py-3 px-4 sm:px-6 font-semibold text-slate-900">Booking</td>

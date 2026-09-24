@@ -42,9 +42,16 @@ export function PrivacyPolicy({ go: _go }: PrivacyPolicyProps) {
                   to="/terms-conditions"
                   className="font-semibold text-[#389c8e] hover:underline cursor-pointer"
                 >
-                  Terms &amp; Conditions
+                  Terms &amp; Conditions (User)
                 </Link>
-                , <strong className="font-semibold text-slate-900">Driver/Delivery Partner Terms</strong>,{' '}
+                ,{' '}
+                <Link
+                  to="/terms-partner"
+                  className="font-semibold text-[#389c8e] hover:underline cursor-pointer"
+                >
+                  Terms &amp; Conditions (Partner)
+                </Link>
+                ,{' '}
                 <Link
                   to="/refund-policy"
                   className="font-semibold text-[#389c8e] hover:underline cursor-pointer"

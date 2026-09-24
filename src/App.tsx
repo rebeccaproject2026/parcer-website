@@ -8,6 +8,7 @@ import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsConditions } from './pages/TermsConditions';
+import { TermsConditionsPartner } from './pages/TermsConditionsPartner';
 import { RefundPolicy } from './pages/RefundPolicy';
 
 function getViewFromPath(pathname: string, hash: string): { view: View; anchor?: string } {
@@ -25,13 +26,29 @@ function getViewFromPath(pathname: string, hash: string): { view: View; anchor?:
   }
 
   if (
+    cleanPath === 'terms-partner' ||
+    cleanPath === 'terms-conditions-partner' ||
+    cleanPath === 'partner-terms' ||
+    cleanPath === 'driver-terms' ||
+    cleanPath === 'terms-partner.html' ||
+    cleanPath === 'terms-conditions-partner.html' ||
+    cleanPath === 'partner-terms.html' ||
+    cleanPath === 'driver-terms.html'
+  ) {
+    return { view: 'terms-partner' };
+  }
+
+  if (
     cleanPath === 'terms-conditions' ||
     cleanPath === 'terms' ||
     cleanPath === 'terms-and-conditions' ||
     cleanPath === 'termsconditions' ||
+    cleanPath === 'terms-user' ||
+    cleanPath === 'terms-conditions-user' ||
     cleanPath === 'terms-conditions.html' ||
     cleanPath === 'terms.html' ||
-    cleanPath === 'terms-and-conditions.html'
+    cleanPath === 'terms-and-conditions.html' ||
+    cleanPath === 'terms-user.html'
   ) {
     return { view: 'terms-conditions' };
   }
@@ -82,6 +99,8 @@ function getPathForView(v: View): string {
       return '/privacy-policy';
     case 'terms-conditions':
       return '/terms-conditions';
+    case 'terms-partner':
+      return '/terms-partner';
     case 'refund-policy':
       return '/refund-policy';
     case 'about':
@@ -100,7 +119,8 @@ const pageTitles: Record<View, string> = {
   'how-it-works': 'How It Works — Parcer',
   'contact': 'Contact Us — Parcer Customer Support',
   'privacy-policy': 'Privacy Policy — Parcer | Tiny Script Soft Tech',
-  'terms-conditions': 'Terms & Conditions — Parcer | Tiny Script Soft Tech',
+  'terms-conditions': 'Terms & Conditions (User) — Parcer | Tiny Script Soft Tech',
+  'terms-partner': 'Terms & Conditions (Partner) — Parcer | Tiny Script Soft Tech',
   'refund-policy': 'Cancellation & Refund Policy — Parcer | Tiny Script Soft Tech',
 };
 
@@ -189,14 +209,27 @@ function App() {
         <Route path="/privacy-policy.html" element={<PrivacyPolicy go={go} />} />
         <Route path="/privacy.html" element={<PrivacyPolicy go={go} />} />
 
-        {/* Terms & Conditions Routes */}
+        {/* Terms & Conditions (User) Routes */}
         <Route path="/terms-conditions" element={<TermsConditions go={go} />} />
         <Route path="/terms" element={<TermsConditions go={go} />} />
         <Route path="/terms-and-conditions" element={<TermsConditions go={go} />} />
         <Route path="/termsconditions" element={<TermsConditions go={go} />} />
+        <Route path="/terms-user" element={<TermsConditions go={go} />} />
+        <Route path="/terms-conditions-user" element={<TermsConditions go={go} />} />
         <Route path="/terms-conditions.html" element={<TermsConditions go={go} />} />
         <Route path="/terms.html" element={<TermsConditions go={go} />} />
         <Route path="/terms-and-conditions.html" element={<TermsConditions go={go} />} />
+        <Route path="/terms-user.html" element={<TermsConditions go={go} />} />
+
+        {/* Terms & Conditions (Partner) Routes */}
+        <Route path="/terms-partner" element={<TermsConditionsPartner go={go} />} />
+        <Route path="/terms-conditions-partner" element={<TermsConditionsPartner go={go} />} />
+        <Route path="/partner-terms" element={<TermsConditionsPartner go={go} />} />
+        <Route path="/driver-terms" element={<TermsConditionsPartner go={go} />} />
+        <Route path="/terms-partner.html" element={<TermsConditionsPartner go={go} />} />
+        <Route path="/terms-conditions-partner.html" element={<TermsConditionsPartner go={go} />} />
+        <Route path="/partner-terms.html" element={<TermsConditionsPartner go={go} />} />
+        <Route path="/driver-terms.html" element={<TermsConditionsPartner go={go} />} />
 
         {/* Cancellation & Refund Policy Routes */}
         <Route path="/refund-policy" element={<RefundPolicy go={go} />} />

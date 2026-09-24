@@ -1,6 +1,15 @@
 import type { LucideIcon } from 'lucide-react';
 
-export type View = 'home' | 'about' | 'services' | 'how-it-works' | 'contact' | 'privacy-policy' | 'terms-conditions' | 'refund-policy';
+export type View =
+  | 'home'
+  | 'about'
+  | 'services'
+  | 'how-it-works'
+  | 'contact'
+  | 'privacy-policy'
+  | 'terms-conditions'
+  | 'terms-partner'
+  | 'refund-policy';
 
 export type IconType = LucideIcon;
 
