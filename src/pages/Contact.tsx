@@ -58,7 +58,7 @@ export function Contact({ go }: ContactProps) {
                     </div>
                     <div>
                       <div className="text-[11px] text-white/50 font-medium">Customer Support</div>
-                      <a href="tel:9316535015" className="font-bold text-white hover:text-[#8ed8d0] transition text-sm">
+                      <a href="tel:+919316535015" className="font-bold text-white hover:text-[#8ed8d0] transition text-sm">
                         +91 93165 35015
                       </a>
                     </div>
@@ -71,8 +71,8 @@ export function Contact({ go }: ContactProps) {
                     </div>
                     <div>
                       <div className="text-[11px] text-white/50 font-medium">Email Support</div>
-                      <a href="mailto:support@theparser.com" className="font-bold text-white hover:text-[#8ed8d0] transition text-sm">
-                        support@theparser.com
+                      <a href="mailto:support@theparcer.com" className="font-bold text-white hover:text-[#8ed8d0] transition text-sm">
+                        support@theparcer.com
                       </a>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ export function Contact({ go }: ContactProps) {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field label="Full Name" placeholder="Your name" />
                   <Field label="Mobile Number" placeholder="+91 93165 35015" />
-                  <Field label="Email Address" placeholder="support@theparser.com" type="email" />
+                  <Field label="Email Address" placeholder="you@example.com" type="email" />
                   <Field label="City / Location" placeholder="e.g. Surat, Bengaluru" />
                 </div>
 

@@ -106,7 +106,7 @@ export function About({ go }: AboutProps) {
             ))}
           </div>
 
-          <CtaSection go={go} />
+          <CtaSection />
         </div>
       </section>
     </Subpage>

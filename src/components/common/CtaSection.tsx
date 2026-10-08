@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Download, PackageCheck } from 'lucide-react';
-import type { View } from '../../types';
 
-interface CtaSectionProps {
-  go: (view: View) => void;
-}
 
-export function CtaSection({ go }: CtaSectionProps) {
+export function CtaSection() {
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -98,13 +95,12 @@ export function CtaSection({ go }: CtaSectionProps) {
               )}
             </div>
 
-            <button
-              type="button"
-              onClick={() => go('contact')}
-              className="rounded-full border border-white/40 px-7 py-4 text-sm font-bold text-white transition hover:bg-white/10 hover:border-white cursor-pointer"
+            <Link
+              to="/contact"
+              className="inline-flex items-center rounded-full border border-white/40 px-7 py-4 text-sm font-bold text-white transition hover:bg-white/10 hover:border-white cursor-pointer"
             >
               Contact us
-            </button>
+            </Link>
           </div>
         </div>
       </div>

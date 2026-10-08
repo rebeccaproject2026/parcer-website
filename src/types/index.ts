@@ -9,7 +9,8 @@ export type View =
   | 'privacy-policy'
   | 'terms-conditions'
   | 'terms-partner'
-  | 'refund-policy';
+  | 'refund-policy'
+  | 'not-found';
 
 export type IconType = LucideIcon;
 

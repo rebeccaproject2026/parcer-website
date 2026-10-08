@@ -1,11 +1,8 @@
 import { ArrowRight, CheckCircle2, PackageCheck, Truck } from 'lucide-react';
-import type { View } from '../../types';
+import { Link } from 'react-router-dom';
 
-interface DualPersonaSectionProps {
-  go: (view: View, anchor?: string) => void;
-}
 
-export function DualPersonaSection({ go }: DualPersonaSectionProps) {
+export function DualPersonaSection() {
   return (
     <section className="bg-[#f7fbfa] px-5 py-20 lg:px-8">
       <div className="mx-auto max-w-[1140px]">
@@ -55,14 +52,13 @@ export function DualPersonaSection({ go }: DualPersonaSectionProps) {
 
             {/* Action Button */}
             <div className="relative z-10 mt-6">
-              <button
-                type="button"
-                onClick={() => go('home', 'ready-to-move')}
+              <Link
+                to="/#ready-to-move"
                 className="btn-shimmer flex w-full items-center justify-center gap-2 rounded-full bg-[#389c8e] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_14px_rgba(56,156,142,0.3)] transition-all duration-300 hover:bg-[#2e8276] hover:shadow-[0_6px_22px_rgba(56,156,142,0.45)] hover:-translate-y-0.5 active:scale-98 cursor-pointer"
               >
                 <span>Book a Vehicle</span>
                 <ArrowRight size={16} />
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -99,14 +95,13 @@ export function DualPersonaSection({ go }: DualPersonaSectionProps) {
 
             {/* Action Button */}
             <div className="relative z-10 mt-6">
-              <button
-                type="button"
-                onClick={() => go('home', 'ready-to-move')}
+              <Link
+                to="/#ready-to-move"
                 className="btn-shimmer flex w-full items-center justify-center gap-2 rounded-full bg-[#d49f24] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_14px_rgba(212,159,36,0.3)] transition-all duration-300 hover:bg-[#b88514] hover:shadow-[0_6px_22px_rgba(212,159,36,0.45)] hover:-translate-y-0.5 active:scale-98 cursor-pointer"
               >
                 <span>Join as a Parcer Partner</span>
                 <ArrowRight size={16} />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

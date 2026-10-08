@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import type { View } from './types';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
@@ -10,7 +10,12 @@ import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsConditions } from './pages/TermsConditions';
 import { TermsConditionsPartner } from './pages/TermsConditionsPartner';
 import { RefundPolicy } from './pages/RefundPolicy';
+import { NotFound } from './pages/NotFound';
+import { applyHeadTags, pageForPath, pathForView } from './seo/pages';
 
+// Old alias-based routing. Alias URLs (/privacy, /terms.html, /about-us …) are now 301-redirected
+// to one canonical URL in vercel.json, and titles/meta live in src/seo/pages.ts.
+/*
 function getViewFromPath(pathname: string, hash: string): { view: View; anchor?: string } {
   const cleanPath = pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
   const cleanHash = hash.toLowerCase().replace(/^#\/?/, '');
@@ -123,6 +128,18 @@ const pageTitles: Record<View, string> = {
   'terms-partner': 'Terms & Conditions (Partner) — Parcer | Tiny Script Soft Tech',
   'refund-policy': 'Cancellation & Refund Policy — Parcer | Tiny Script Soft Tech',
 };
+*/
+
+const HOME_ANCHORS = ['services', 'how-it-works', 'vehicles', 'ready-to-move', 'faqs'];
+
+function getViewFromPath(pathname: string, hash: string): { view: View; anchor?: string } {
+  const { view } = pageForPath(pathname);
+  const cleanHash = hash.toLowerCase().replace(/^#\/?/, '');
+  if (view === 'home' && HOME_ANCHORS.includes(cleanHash)) {
+    return { view, anchor: cleanHash };
+  }
+  return { view };
+}
 
 function App() {
   const location = useLocation();
@@ -139,10 +156,11 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Update page document title
+  // Swap title, description, canonical and JSON-LD after in-app navigation.
+  // (The prerendered HTML already ships the right tags for the first load.)
   useEffect(() => {
-    document.title = pageTitles[view] || 'Parcer — Smarter Goods Transportation';
-  }, [view]);
+    applyHeadTags(pageForPath(location.pathname));
+  }, [location.pathname]);
 
   // Handle scroll on route / anchor change
   useEffect(() => {
@@ -168,7 +186,7 @@ function App() {
       anchorToUse = 'how-it-works';
     }
 
-    const newPath = getPathForView(targetView);
+    const newPath = pathForView(targetView);
     const targetUrl = anchorToUse ? `${newPath}#${anchorToUse}` : newPath;
 
     navigate(targetUrl);
@@ -179,7 +197,6 @@ function App() {
     <div className="min-h-screen bg-white text-[#334155]">
       <Navbar
         view={view}
-        go={go}
         scrolled={scrolled}
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
@@ -188,68 +205,72 @@ function App() {
       <Routes>
         {/* Home Routes */}
         <Route path="/" element={<Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />} />
-        <Route path="/index.html" element={<Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />} />
         
+        {/* Services & How It Works Redirects */}
+        <Route path="/services" element={<Navigate to="/#services" replace />} />
+        <Route path="/how-it-works" element={<Navigate to="/#how-it-works" replace />} />
+
         {/* About Routes */}
         <Route path="/about" element={<About go={go} />} />
-        <Route path="/about-us" element={<About go={go} />} />
-        <Route path="/about.html" element={<About go={go} />} />
-        <Route path="/about-us.html" element={<About go={go} />} />
+        {/* <Route path="/about-us" element={<About go={go} />} /> */}
+        {/* <Route path="/about.html" element={<About go={go} />} /> */}
+        {/* <Route path="/about-us.html" element={<About go={go} />} /> */}
 
         {/* Contact Routes */}
         <Route path="/contact" element={<Contact go={go} />} />
-        <Route path="/contact-us" element={<Contact go={go} />} />
-        <Route path="/contact.html" element={<Contact go={go} />} />
-        <Route path="/contact-us.html" element={<Contact go={go} />} />
+        {/* <Route path="/contact-us" element={<Contact go={go} />} /> */}
+        {/* <Route path="/contact.html" element={<Contact go={go} />} /> */}
+        {/* <Route path="/contact-us.html" element={<Contact go={go} />} /> */}
 
         {/* Privacy Policy Routes */}
         <Route path="/privacy-policy" element={<PrivacyPolicy go={go} />} />
-        <Route path="/privacy" element={<PrivacyPolicy go={go} />} />
-        <Route path="/privacypolicy" element={<PrivacyPolicy go={go} />} />
-        <Route path="/privacy-policy.html" element={<PrivacyPolicy go={go} />} />
-        <Route path="/privacy.html" element={<PrivacyPolicy go={go} />} />
+        {/* <Route path="/privacy" element={<PrivacyPolicy go={go} />} /> */}
+        {/* <Route path="/privacypolicy" element={<PrivacyPolicy go={go} />} /> */}
+        {/* <Route path="/privacy-policy.html" element={<PrivacyPolicy go={go} />} /> */}
+        {/* <Route path="/privacy.html" element={<PrivacyPolicy go={go} />} /> */}
 
         {/* Terms & Conditions (User) Routes */}
         <Route path="/terms-conditions" element={<TermsConditions go={go} />} />
-        <Route path="/terms" element={<TermsConditions go={go} />} />
-        <Route path="/terms-and-conditions" element={<TermsConditions go={go} />} />
-        <Route path="/termsconditions" element={<TermsConditions go={go} />} />
-        <Route path="/terms-user" element={<TermsConditions go={go} />} />
-        <Route path="/terms-conditions-user" element={<TermsConditions go={go} />} />
-        <Route path="/terms-conditions.html" element={<TermsConditions go={go} />} />
-        <Route path="/terms.html" element={<TermsConditions go={go} />} />
-        <Route path="/terms-and-conditions.html" element={<TermsConditions go={go} />} />
-        <Route path="/terms-user.html" element={<TermsConditions go={go} />} />
+        {/* <Route path="/terms" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/terms-and-conditions" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/termsconditions" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/terms-user" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/terms-conditions-user" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/terms-conditions.html" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/terms.html" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/terms-and-conditions.html" element={<TermsConditions go={go} />} /> */}
+        {/* <Route path="/terms-user.html" element={<TermsConditions go={go} />} /> */}
 
         {/* Terms & Conditions (Partner) Routes */}
         <Route path="/terms-partner" element={<TermsConditionsPartner go={go} />} />
-        <Route path="/terms-conditions-partner" element={<TermsConditionsPartner go={go} />} />
-        <Route path="/partner-terms" element={<TermsConditionsPartner go={go} />} />
-        <Route path="/driver-terms" element={<TermsConditionsPartner go={go} />} />
-        <Route path="/terms-partner.html" element={<TermsConditionsPartner go={go} />} />
-        <Route path="/terms-conditions-partner.html" element={<TermsConditionsPartner go={go} />} />
-        <Route path="/partner-terms.html" element={<TermsConditionsPartner go={go} />} />
-        <Route path="/driver-terms.html" element={<TermsConditionsPartner go={go} />} />
+        {/* <Route path="/terms-conditions-partner" element={<TermsConditionsPartner go={go} />} /> */}
+        {/* <Route path="/partner-terms" element={<TermsConditionsPartner go={go} />} /> */}
+        {/* <Route path="/driver-terms" element={<TermsConditionsPartner go={go} />} /> */}
+        {/* <Route path="/terms-partner.html" element={<TermsConditionsPartner go={go} />} /> */}
+        {/* <Route path="/terms-conditions-partner.html" element={<TermsConditionsPartner go={go} />} /> */}
+        {/* <Route path="/partner-terms.html" element={<TermsConditionsPartner go={go} />} /> */}
+        {/* <Route path="/driver-terms.html" element={<TermsConditionsPartner go={go} />} /> */}
 
         {/* Cancellation & Refund Policy Routes */}
         <Route path="/refund-policy" element={<RefundPolicy go={go} />} />
-        <Route path="/cancellation-refund" element={<RefundPolicy go={go} />} />
-        <Route path="/cancellation-policy" element={<RefundPolicy go={go} />} />
-        <Route path="/cancellation-and-refund" element={<RefundPolicy go={go} />} />
-        <Route path="/cancellation" element={<RefundPolicy go={go} />} />
-        <Route path="/refund" element={<RefundPolicy go={go} />} />
-        <Route path="/refundpolicy" element={<RefundPolicy go={go} />} />
-        <Route path="/refund-policy.html" element={<RefundPolicy go={go} />} />
-        <Route path="/cancellation-refund.html" element={<RefundPolicy go={go} />} />
-        <Route path="/cancellation-policy.html" element={<RefundPolicy go={go} />} />
-        <Route path="/cancellation.html" element={<RefundPolicy go={go} />} />
-        <Route path="/refund.html" element={<RefundPolicy go={go} />} />
+        {/* <Route path="/cancellation-refund" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/cancellation-policy" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/cancellation-and-refund" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/cancellation" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/refund" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/refundpolicy" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/refund-policy.html" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/cancellation-refund.html" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/cancellation-policy.html" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/cancellation.html" element={<RefundPolicy go={go} />} /> */}
+        {/* <Route path="/refund.html" element={<RefundPolicy go={go} />} /> */}
 
-        {/* Fallback */}
-        <Route path="*" element={<Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />} />
+        {/* Fallback: real 404 page (served with HTTP 404 from 404.html) */}
+        {/* <Route path="*" element={<Home go={go} activeFaq={activeFaq} setActiveFaq={setActiveFaq} />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
-      <Footer go={go} />
+      <Footer />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root')!;
+const app = (
   <StrictMode>
     <BrowserRouter>
       <App />
@@ -12,3 +13,10 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>
 );
 
+// Production pages are prerendered (scripts/prerender.mjs), so attach to the existing
+// markup; the dev server serves an empty root and renders from scratch.
+if (container.firstElementChild) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}

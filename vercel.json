@@ -1,8 +1,222 @@
 {
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/services",
+      "destination": "/#services",
+      "statusCode": 301
+    },
+    {
+      "source": "/services.html",
+      "destination": "/#services",
+      "statusCode": 301
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/#how-it-works",
+      "statusCode": 301
+    },
+    {
+      "source": "/how-it-works.html",
+      "destination": "/#how-it-works",
+      "statusCode": 301
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/about-us.html",
+      "destination": "/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/contact-us.html",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/privacypolicy",
+      "destination": "/privacy-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/privacy.html",
+      "destination": "/privacy-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/termsconditions",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-user",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-conditions-user",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms.html",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-and-conditions.html",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-user.html",
+      "destination": "/terms-conditions",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-conditions-partner",
+      "destination": "/terms-partner",
+      "statusCode": 301
+    },
+    {
+      "source": "/partner-terms",
+      "destination": "/terms-partner",
+      "statusCode": 301
+    },
+    {
+      "source": "/driver-terms",
+      "destination": "/terms-partner",
+      "statusCode": 301
+    },
+    {
+      "source": "/terms-conditions-partner.html",
+      "destination": "/terms-partner",
+      "statusCode": 301
+    },
+    {
+      "source": "/partner-terms.html",
+      "destination": "/terms-partner",
+      "statusCode": 301
+    },
+    {
+      "source": "/driver-terms.html",
+      "destination": "/terms-partner",
+      "statusCode": 301
+    },
+    {
+      "source": "/cancellation-refund",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/cancellation-policy",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/cancellation-and-refund",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/cancellation",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/refund",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/refundpolicy",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/cancellation-refund.html",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/cancellation-policy.html",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/cancellation.html",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    },
+    {
+      "source": "/refund.html",
+      "destination": "/refund-policy",
+      "statusCode": 301
+    }
+  ],
+  "headers": [
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }

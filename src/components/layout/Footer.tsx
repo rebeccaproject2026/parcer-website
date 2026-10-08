@@ -8,6 +8,7 @@ import {
   Phone,
 } from 'lucide-react';
 import type { IconType, View } from '../../types';
+import { CONTACT, pathForView } from '../../seo/pages';
 
 function XIcon({ size = 14, className }: { size?: number; className?: string }) {
   return (
@@ -23,10 +24,9 @@ function XIcon({ size = 14, className }: { size?: number; className?: string }) 
   );
 }
 
-interface FooterProps {
-  go: (view: View, anchor?: string) => void;
-}
 
+// Replaced by pathForView: Services and How It Works are real pages now, not homepage anchors.
+/*
 function getRouteForView(key: string): string {
   switch (key) {
     case 'privacy-policy':
@@ -49,8 +49,9 @@ function getRouteForView(key: string): string {
       return '/';
   }
 }
+*/
 
-export function Footer({ go }: FooterProps) {
+export function Footer() {
   return (
     <footer className="bg-[#334155] px-5 pb-8 pt-16 text-white lg:px-8 border-t border-slate-700/60">
       <div className="mx-auto max-w-[1100px]">
@@ -80,9 +81,9 @@ export function Footer({ go }: FooterProps) {
               Smarter, simpler and most reliable on-demand goods transportation across Indian cities.
             </p>
             <div className="mt-6 flex gap-3">
-              <Social Icon={Instagram} />
-              <Social Icon={Facebook} />
-              <Social Icon={Linkedin} />
+              <Social Icon={Instagram} label="Instagram" />
+              <Social Icon={Facebook} label="Facebook" />
+              <Social Icon={Linkedin} label="LinkedIn" />
               <button
                 type="button"
                 aria-label="X (formerly Twitter)"
@@ -101,7 +102,6 @@ export function Footer({ go }: FooterProps) {
               ['How It Works', 'how-it-works'],
               ['Contact', 'contact'],
             ]}
-            go={go}
           />
           <FooterColumn
             title="Services"
@@ -111,8 +111,7 @@ export function Footer({ go }: FooterProps) {
               'Real-time tracking',
               'Affordable pricing',
               'On-demand vehicle',
-            ].map((x) => [x, 'services'])}
-            go={go}
+            ].map((x): [string, View] => [x, 'services'])}
           />
           {/* Column 4: Support & Contact */}
           <div>
@@ -121,23 +120,23 @@ export function Footer({ go }: FooterProps) {
             </h3>
             <div className="mt-5 space-y-3.5 text-sm text-white/75">
               <a
-                href="mailto:support@theparser.com"
+                href={`mailto:${CONTACT.email}`}
                 className="flex items-center gap-2 text-white/80 hover:text-[#8ed8d0] transition-colors"
               >
                 <Mail size={14} className="text-[#8ed8d0]" />
-                support@theparser.com
+                {CONTACT.email}
               </a>
               <a
-                href="tel:9316535015"
+                href={CONTACT.phoneHref}
                 className="flex items-center gap-2 text-white/80 hover:text-[#8ed8d0] transition-colors"
               >
                 <Phone size={14} className="text-[#8ed8d0]" />
-                +91 93165 35015
+                {CONTACT.phone}
               </a>
               <div className="flex items-start gap-2 text-white/70">
                 <MapPin size={15} className="text-[#8ed8d0] shrink-0 mt-1" />
                 <span className="leading-snug">
-                  607, The Plutus, Sargasan, Gandhinagar, Gujarat 382419
+                  {CONTACT.streetAddress}, {CONTACT.locality}, {CONTACT.region} {CONTACT.postalCode}
                 </span>
               </div>
             </div>
@@ -219,9 +218,9 @@ export function Footer({ go }: FooterProps) {
   );
 }
 
-function Social({ Icon }: { Icon: IconType }) {
+function Social({ Icon, label }: { Icon: IconType; label: string }) {
   return (
-    <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/65 transition-all duration-300 hover:border-[#5bbdb9] hover:text-[#8ed8d0] hover:bg-white/5 hover:scale-110">
+    <button type="button" aria-label={label} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/65 transition-all duration-300 hover:border-[#5bbdb9] hover:text-[#8ed8d0] hover:bg-white/5 hover:scale-110">
       <Icon size={15} />
     </button>
   );
@@ -230,11 +229,9 @@ function Social({ Icon }: { Icon: IconType }) {
 function FooterColumn({
   title,
   links,
-  go,
 }: {
   title: string;
-  links: [string, string][];
-  go: (view: View, anchor?: string) => void;
+  links: [string, View][];
 }) {
   return (
     <div>
@@ -243,23 +240,19 @@ function FooterColumn({
       </h3>
       <div className="mt-5 space-y-3">
         {links.map(([label, key]) => {
-          const isAnchorOrHome = key === 'services' || key === 'how-it-works';
-          if (isAnchorOrHome) {
-            return (
-              <button
-                key={label}
-                onClick={() => go('home', key)}
-                className="block text-sm text-white/70 transition-all duration-200 hover:text-white hover:translate-x-1 text-left"
-              >
-                {label}
-              </button>
-            );
-          }
+          const href = pathForView(key);
           return (
             <Link
               key={label}
-              to={getRouteForView(key)}
-              className="block text-sm text-white/70 transition-all duration-200 hover:text-white hover:translate-x-1"
+              to={href}
+              onClick={() => {
+                if (href.startsWith('/#')) {
+                  const anchorId = href.replace('/#', '');
+                  const el = document.getElementById(anchorId);
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="block text-sm text-white/70 transition-all duration-200 hover:text-white hover:translate-x-1 text-left"
             >
               {label}
             </Link>

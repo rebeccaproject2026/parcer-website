@@ -58,7 +58,7 @@ export function Home({ go, activeFaq, setActiveFaq }: HomeProps) {
             {/* App Store & Google Play Download Badges */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="#download"
+                href="/contact"
                 onClick={(e) => {
                   e.preventDefault();
                   go('contact');
@@ -73,7 +73,7 @@ export function Home({ go, activeFaq, setActiveFaq }: HomeProps) {
               </a>
 
               <a
-                href="#download"
+                href="/contact"
                 onClick={(e) => {
                   e.preventDefault();
                   go('contact');
@@ -123,7 +123,7 @@ export function Home({ go, activeFaq, setActiveFaq }: HomeProps) {
       <VehicleSection go={go} />
 
       {/* Dual Persona Customer / Driver Cards */}
-      <DualPersonaSection go={go} />
+      <DualPersonaSection />
 
       {/* Testimonials */}
       {/* <TestimonialSection /> */}
@@ -134,7 +134,7 @@ export function Home({ go, activeFaq, setActiveFaq }: HomeProps) {
       {/* Floating Newsletter & CTA */}
       <div className="space-y-12 pb-2">
         <NewsletterOverlap go={go} />
-        <CtaSection go={go} />
+        <CtaSection />
       </div>
     </main>
   );
