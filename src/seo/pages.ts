@@ -182,14 +182,9 @@ export function headTags(page: PageMeta): string {
     `<title data-seo>${title}</title>`,
     `<meta data-seo name="description" content="${description}" />`,
     `<meta data-seo name="robots" content="${page.noindex ? 'noindex, follow' : 'index, follow'}" />`,
-    `<meta data-seo property="og:title" content="${title}" />`,
-    `<meta data-seo property="og:description" content="${description}" />`,
-    `<meta data-seo name="twitter:title" content="${title}" />`,
-    `<meta data-seo name="twitter:description" content="${description}" />`,
   ];
   if (!page.noindex) {
     tags.push(`<link data-seo rel="canonical" href="${url}" />`);
-    tags.push(`<meta data-seo property="og:url" content="${url}" />`);
   }
   const ld = structuredData(page);
   if (ld) {
