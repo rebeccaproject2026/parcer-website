@@ -28,9 +28,9 @@ export const pages: PageMeta[] = [
   {
     view: 'home',
     path: '/',
-    title: 'Goods Transport & Mini Truck Booking in Ahmedabad | Parcer',
+    title: 'Parcer — Fast 2-Wheeler Doorstep Delivery & On-Demand Booking',
     description:
-      'Book tempos, mini trucks and bikes for goods transport in Ahmedabad & Gandhinagar. Instant fares, live tracking, verified drivers. Book with Parcer today.',
+      'Fast 2-wheeler doorstep delivery with instant booking, live GPS tracking, and transparent rates.',
   },
   {
     view: 'about',
@@ -136,12 +136,9 @@ function structuredData(page: PageMeta): object | null {
         },
         {
           '@type': 'Service',
-          serviceType: 'Goods transportation',
+          serviceType: 'Two-Wheeler Goods & Parcel Delivery',
           provider: { '@id': ORG_ID },
-          areaServed: [
-            { '@type': 'City', name: 'Ahmedabad' },
-            { '@type': 'City', name: 'Gandhinagar' },
-          ],
+          areaServed: { '@type': 'Country', name: 'India' },
         },
         // The FAQ section is rendered on the homepage, so FAQPage markup is allowed here.
         {
