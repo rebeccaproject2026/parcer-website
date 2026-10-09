@@ -179,6 +179,24 @@
       "statusCode": 301
     }
   ],
+  "rewrites": [
+    {
+      "source": "/tc/:token",
+      "destination": "https://api.theparcer.com/tc/:token"
+    },
+    {
+      "source": "/track/:token",
+      "destination": "https://api.theparcer.com/track/:token"
+    },
+    {
+      "source": "/api/v1/public/:match*",
+      "destination": "https://api.theparcer.com/api/v1/public/:match*"
+    },
+    {
+      "source": "/images/:match*",
+      "destination": "https://api.theparcer.com/images/:match*"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -205,7 +223,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://maps.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: blob:; connect-src 'self' https://maps.googleapis.com https://*.googleapis.com https://api.theparcer.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
         }
       ]
     },
